@@ -1,4 +1,4 @@
-FROM postgres
+FROM postgres:10.1-alpine
 
 MAINTAINER Carlos Rafael M Fernandes <carlos@hopetecno.com>
 
