@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Components\ExampleWeatherIntegration\Strategies;
+namespace App\Components\Irs\Strategies;
 
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use App\Components\ExampleWeatherIntegration\Contracts\ExampleWeatherInterface;
-use App\Components\ExampleWeatherIntegration\Exceptions\ExampleWeatherException;
+use App\Components\Irs\Contracts\IrsInterface;
+use App\Components\Irs\Exceptions\IrsException;
 
-class ExampleWeatherStrategy implements ExampleWeatherInterface
+class IrsStrategy implements IrsInterface
 {
 
     /**
@@ -26,24 +26,23 @@ class ExampleWeatherStrategy implements ExampleWeatherInterface
     }
 
     /**
-     * @param int $id
+     * @param int $cnpj
      * @return Object
      * @throws Exception
      */
-    public function generateWeather(
-    int $id
+    public function irs(
+    int $cnpj
     ): Object
     {
         try {
 
-            $response = $this->client->request('GET', '?woeid='.$id , [
-                'json' => '',
-            ]);
+            $response = $this->client->request('GET', 'cnpj/'.$cnpj);
+
             return json_decode($response->getBody()->getContents());
         } catch (ClientException $exception) {
             $response = json_decode($exception->getResponse()->getBody()->getContents());
 
-            throw new ExampleWeatherException(
+            throw new IrsException(
             $response->message, $exception->getCode()
             );
         } catch (Exception $exception) {

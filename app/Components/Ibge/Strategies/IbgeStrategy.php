@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Components\ExampleWeatherIntegration\Strategies;
+namespace App\Components\Ibge\Strategies;
 
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use App\Components\ExampleWeatherIntegration\Contracts\ExampleWeatherInterface;
-use App\Components\ExampleWeatherIntegration\Exceptions\ExampleWeatherException;
+use App\Components\Ibge\Contracts\IbgeInterface;
+use App\Components\Ibge\Exceptions\IbgeException;
 
-class ExampleWeatherStrategy implements ExampleWeatherInterface
+class IbgeStrategy implements IbgeInterface
 {
 
     /**
@@ -26,24 +26,21 @@ class ExampleWeatherStrategy implements ExampleWeatherInterface
     }
 
     /**
-     * @param int $id
-     * @return Object
+
+     * @return array
      * @throws Exception
      */
-    public function generateWeather(
-    int $id
-    ): Object
+    public function cnae(
+
+    ): array
     {
         try {
-
-            $response = $this->client->request('GET', '?woeid='.$id , [
-                'json' => '',
-            ]);
+            $response = $this->client->request('GET' ,'classes');
             return json_decode($response->getBody()->getContents());
         } catch (ClientException $exception) {
             $response = json_decode($exception->getResponse()->getBody()->getContents());
 
-            throw new ExampleWeatherException(
+            throw new IbgeException(
             $response->message, $exception->getCode()
             );
         } catch (Exception $exception) {

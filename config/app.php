@@ -167,6 +167,9 @@ return [
          */
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         \App\Providers\ExampleWeatherProvider::class,
+        \App\Providers\IbgeProvider::class,
+        \App\Providers\IrsProvider::class,
+        \App\Providers\BbProviderovider::class,
         /*
          * Application Service Providers...
          */

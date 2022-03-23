@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Components\ExampleWeatherIntegration\Strategies;
+namespace App\Components\bb\Strategies;
 
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use App\Components\ExampleWeatherIntegration\Contracts\ExampleWeatherInterface;
-use App\Components\ExampleWeatherIntegration\Exceptions\ExampleWeatherException;
+use App\Components\bb\Contracts\BbInterface;
+use App\Components\bb\Exceptions\BbException;
 
-class ExampleWeatherStrategy implements ExampleWeatherInterface
+class BbStrategy implements BbInterface
 {
 
     /**
      * @var Client
      */
     protected $client;
+    protected $token;
 
     /**
      * ExampleWeatherStrategy constructor.
@@ -26,25 +27,28 @@ class ExampleWeatherStrategy implements ExampleWeatherInterface
     }
 
     /**
-     * @param int $id
+     * @param array $data
      * @return Object
-     * @throws Exception
+     * @throws Exceptions
      */
-    public function generateWeather(
-    int $id
+    public function bb(
+        array $data
     ): Object
     {
         try {
 
-            $response = $this->client->request('GET', '?woeid='.$id , [
-                'json' => '',
+            $response = $this->client->request('POST', 'oauth/token',[
+                'verify' => false,
+                'json' => $data,
             ]);
+
             return json_decode($response->getBody()->getContents());
+
         } catch (ClientException $exception) {
             $response = json_decode($exception->getResponse()->getBody()->getContents());
 
-            throw new ExampleWeatherException(
-            $response->message, $exception->getCode()
+            throw new BbException(
+            $response, $exception->getCode()
             );
         } catch (Exception $exception) {
             throw $exception;
