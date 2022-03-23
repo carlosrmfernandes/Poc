@@ -66,6 +66,11 @@ Criar um diretório na are trabalho chamado Hope
 Clonar o projecto dentro desse diretório
 ```
 
+Executar o docker compuser
+```php
+docker-compose up 
+```
+
 ## Comandos básicos 
 
 ```php
@@ -79,7 +84,9 @@ cd <Diretório do projecto>
 cp .env.docker.example .env
 
 #para instalar as dependência do projecto
-composer install
+composer install ou composer install --ignore-platform-reqs
+
+obs: caso acontece algum erro execute esse comando fora do container
 ```
 
 ## Banco de dados
@@ -119,6 +126,10 @@ composer dump-autoload
 php artisan migrate
 ```
 
+```php
+php artisan db:seed
+```
+
 ## Execução das queue 
 
 Acessar o container onde esta à aplicacão e dentro do diretório do projecto executar os seguinte comando
@@ -128,7 +139,8 @@ Execute o seguinte comando
 ```php
 php artisan queue:work
 ```
-
+![alt text](https://github.com/carlosrmfernandes/api-locadora/blob/master/public/img/Screen%20Shot%202022-02-13%20at%2021.29.57.png)
+![alt text](https://github.com/carlosrmfernandes/api-locadora/blob/master/public/img/Screen%20Shot%202022-02-13%20at%2021.30.11.png)
 
 ## Teste Unintário  
 
@@ -139,7 +151,6 @@ vendor/bin/phpunit
 ou
 php artisan test
 ```
-
 ## Sobre os testes 
 >Recomendamos o uso de qualquer ferramenta `client-rest` para testes nas chamadas da API.
  
@@ -149,11 +160,10 @@ php artisan test
 - *POSTMAN*
 [https://www.getpostman.com/downloads/](https://www.getpostman.com/downloads/)
 
-## Chamadas da API	
-Documentação: 
 
 ## Link da collections 
 Collections:
+https://www.getpostman.com/collections/7a45584a6948e904d77b
 
 ## Erros
 
