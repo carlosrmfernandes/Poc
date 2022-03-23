@@ -70,10 +70,8 @@ class BbController extends Controller
 
     public function regiterBoleto(Request $request){
         $attribute = $request->all();
-        // return response()->json(['data' => app(ClientAuthorization::class)->bb($attribute)]);
+        return response()->json(['data' => app(ClientAuthorization::class)->bb($attribute)]);
 
-
-        return response()->json(['data' => app('Text')->bb($attribute)]);
     }
 
 }
